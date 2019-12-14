@@ -1,0 +1,142 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="BankAccountAmaniModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2005" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="account">
+    <Key>
+      <PropertyRef Name="AccNo" />
+    </Key>
+    <Property Name="AccNo" Type="int" Nullable="false" />
+    <Property Name="TypeLoan" Type="varchar" MaxLength="40" Nullable="false" />
+    <Property Name="Bank_Branch_id" Type="int" />
+    <Property Name="Balance" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="bank">
+    <Key>
+      <PropertyRef Name="code" />
+    </Key>
+    <Property Name="code" Type="int" Nullable="false" />
+    <Property Name="Name" Type="varchar" MaxLength="40" Nullable="false" />
+    <Property Name="Addresss" Type="varchar" MaxLength="40" Nullable="false" />
+  </EntityType>
+  <EntityType Name="bank_branch">
+    <Key>
+      <PropertyRef Name="Bank_Branch_id" />
+    </Key>
+    <Property Name="Bank_Branch_id" Type="int" Nullable="false" />
+    <Property Name="Address" Type="varchar" MaxLength="40" Nullable="false" />
+    <Property Name="code" Type="int" />
+  </EntityType>
+  <EntityType Name="customer">
+    <Key>
+      <PropertyRef Name="SSN" />
+    </Key>
+    <Property Name="SSN" Type="int" Nullable="false" />
+    <Property Name="Bank_Branch_id" Type="int" />
+    <Property Name="Phone" Type="varchar" MaxLength="15" Nullable="false" />
+    <Property Name="Name" Type="varchar" MaxLength="40" Nullable="false" />
+    <Property Name="Addresss" Type="varchar" MaxLength="50" Nullable="false" />
+  </EntityType>
+  <!--Errors Found During Generation:
+warning 6013: The table/view 'BankAccountAmani.dbo.customer_Account' does not have a primary key defined and no valid primary key could be inferred. This table/view has been excluded. To use the entity, you will need to review your schema, add the correct keys, and uncomment it.
+        <EntityType Name="customer_Account">
+          <Property Name="AccNo" Type="int" />
+          <Property Name="SSN" Type="int" />
+        </EntityType>-->
+  <EntityType Name="loan">
+    <Key>
+      <PropertyRef Name="LoanNo" />
+    </Key>
+    <Property Name="LoanNo" Type="int" Nullable="false" />
+    <Property Name="Amount" Type="int" Nullable="false" />
+    <Property Name="type" Type="varchar" MaxLength="40" Nullable="false" />
+    <Property Name="Bank_Branch_id" Type="int" />
+  </EntityType>
+  <!--Errors Found During Generation:
+warning 6013: The table/view 'BankAccountAmani.dbo.LOAN_CUSTOMER' does not have a primary key defined and no valid primary key could be inferred. This table/view has been excluded. To use the entity, you will need to review your schema, add the correct keys, and uncomment it.
+        <EntityType Name="LOAN_CUSTOMER">
+          <Property Name="LoanNo" Type="int" />
+          <Property Name="SSN" Type="int" />
+        </EntityType>-->
+  <Association Name="FK__account__Bank_Br__023D5A04">
+    <End Role="bank_branch" Type="Self.bank_branch" Multiplicity="0..1" />
+    <End Role="account" Type="Self.account" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="bank_branch">
+        <PropertyRef Name="Bank_Branch_id" />
+      </Principal>
+      <Dependent Role="account">
+        <PropertyRef Name="Bank_Branch_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__bank_branc__code__7F60ED59">
+    <End Role="bank" Type="Self.bank" Multiplicity="0..1" />
+    <End Role="bank_branch" Type="Self.bank_branch" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="bank">
+        <PropertyRef Name="code" />
+      </Principal>
+      <Dependent Role="bank_branch">
+        <PropertyRef Name="code" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <!--Errors Found During Generation:
+error 6004: The table 'BankAccountAmani.dbo.customer_Account' is referenced by a relationship, but cannot be found.
+        <Association Name="FK__customer___AccNo__09DE7BCC" />-->
+  <Association Name="FK__customer__Bank_B__0519C6AF">
+    <End Role="bank_branch" Type="Self.bank_branch" Multiplicity="0..1" />
+    <End Role="customer" Type="Self.customer" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="bank_branch">
+        <PropertyRef Name="Bank_Branch_id" />
+      </Principal>
+      <Dependent Role="customer">
+        <PropertyRef Name="Bank_Branch_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <!--Errors Found During Generation:
+error 6004: The table 'BankAccountAmani.dbo.customer_Account' is referenced by a relationship, but cannot be found.
+        <Association Name="FK__customer_Ac__SSN__0AD2A005" />-->
+  <Association Name="FK__loan__Bank_Branc__07F6335A">
+    <End Role="bank_branch" Type="Self.bank_branch" Multiplicity="0..1" />
+    <End Role="loan" Type="Self.loan" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="bank_branch">
+        <PropertyRef Name="Bank_Branch_id" />
+      </Principal>
+      <Dependent Role="loan">
+        <PropertyRef Name="Bank_Branch_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <!--Errors Found During Generation:
+error 6004: The table 'BankAccountAmani.dbo.LOAN_CUSTOMER' is referenced by a relationship, but cannot be found.
+        <Association Name="FK__LOAN_CUST__LoanN__0CBAE877" />-->
+  <!--Errors Found During Generation:
+error 6004: The table 'BankAccountAmani.dbo.LOAN_CUSTOMER' is referenced by a relationship, but cannot be found.
+        <Association Name="FK__LOAN_CUSTOM__SSN__0DAF0CB0" />-->
+  <EntityContainer Name="BankAccountAmaniModelStoreContainer">
+    <EntitySet Name="account" EntityType="Self.account" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="bank" EntityType="Self.bank" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="bank_branch" EntityType="Self.bank_branch" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="customer" EntityType="Self.customer" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="loan" EntityType="Self.loan" Schema="dbo" store:Type="Tables" />
+    <AssociationSet Name="FK__account__Bank_Br__023D5A04" Association="Self.FK__account__Bank_Br__023D5A04">
+      <End Role="bank_branch" EntitySet="bank_branch" />
+      <End Role="account" EntitySet="account" />
+    </AssociationSet>
+    <AssociationSet Name="FK__bank_branc__code__7F60ED59" Association="Self.FK__bank_branc__code__7F60ED59">
+      <End Role="bank" EntitySet="bank" />
+      <End Role="bank_branch" EntitySet="bank_branch" />
+    </AssociationSet>
+    <AssociationSet Name="FK__customer__Bank_B__0519C6AF" Association="Self.FK__customer__Bank_B__0519C6AF">
+      <End Role="bank_branch" EntitySet="bank_branch" />
+      <End Role="customer" EntitySet="customer" />
+    </AssociationSet>
+    <AssociationSet Name="FK__loan__Bank_Branc__07F6335A" Association="Self.FK__loan__Bank_Branc__07F6335A">
+      <End Role="bank_branch" EntitySet="bank_branch" />
+      <End Role="loan" EntitySet="loan" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

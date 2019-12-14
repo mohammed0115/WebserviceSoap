@@ -1,0 +1,126 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="BankAccountAmaniModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="account">
+    <Key>
+      <PropertyRef Name="AccNo" />
+    </Key>
+    <Property Name="AccNo" Type="Int32" Nullable="false" />
+    <Property Name="TypeLoan" Type="String" MaxLength="40" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Bank_Branch_id" Type="Int32" />
+    <Property Name="Balance" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="bank_branch" Relationship="Self.FK__account__Bank_Br__023D5A04" FromRole="account" ToRole="bank_branch" />
+  </EntityType>
+  <EntityType Name="bank">
+    <Key>
+      <PropertyRef Name="code" />
+    </Key>
+    <Property Name="code" Type="Int32" Nullable="false" />
+    <Property Name="Name" Type="String" MaxLength="40" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Addresss" Type="String" MaxLength="40" FixedLength="false" Unicode="false" Nullable="false" />
+    <NavigationProperty Name="bank_branch" Relationship="Self.FK__bank_branc__code__7F60ED59" FromRole="bank" ToRole="bank_branch" />
+  </EntityType>
+  <EntityType Name="bank_branch">
+    <Key>
+      <PropertyRef Name="Bank_Branch_id" />
+    </Key>
+    <Property Name="Bank_Branch_id" Type="Int32" Nullable="false" />
+    <Property Name="Address" Type="String" MaxLength="40" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="code" Type="Int32" />
+    <NavigationProperty Name="accounts" Relationship="Self.FK__account__Bank_Br__023D5A04" FromRole="bank_branch" ToRole="account" />
+    <NavigationProperty Name="bank" Relationship="Self.FK__bank_branc__code__7F60ED59" FromRole="bank_branch" ToRole="bank" />
+    <NavigationProperty Name="customers" Relationship="Self.FK__customer__Bank_B__0519C6AF" FromRole="bank_branch" ToRole="customer" />
+    <NavigationProperty Name="loans" Relationship="Self.FK__loan__Bank_Branc__07F6335A" FromRole="bank_branch" ToRole="loan" />
+  </EntityType>
+  <EntityType Name="customer">
+    <Key>
+      <PropertyRef Name="SSN" />
+    </Key>
+    <Property Name="SSN" Type="Int32" Nullable="false" />
+    <Property Name="Bank_Branch_id" Type="Int32" />
+    <Property Name="Phone" Type="String" MaxLength="15" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Name" Type="String" MaxLength="40" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Addresss" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <NavigationProperty Name="bank_branch" Relationship="Self.FK__customer__Bank_B__0519C6AF" FromRole="customer" ToRole="bank_branch" />
+  </EntityType>
+  <EntityType Name="loan">
+    <Key>
+      <PropertyRef Name="LoanNo" />
+    </Key>
+    <Property Name="LoanNo" Type="Int32" Nullable="false" />
+    <Property Name="Amount" Type="Int32" Nullable="false" />
+    <Property Name="type" Type="String" MaxLength="40" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Bank_Branch_id" Type="Int32" />
+    <NavigationProperty Name="bank_branch" Relationship="Self.FK__loan__Bank_Branc__07F6335A" FromRole="loan" ToRole="bank_branch" />
+  </EntityType>
+  <Association Name="FK__account__Bank_Br__023D5A04">
+    <End Role="bank_branch" Type="Self.bank_branch" Multiplicity="0..1" />
+    <End Role="account" Type="Self.account" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="bank_branch">
+        <PropertyRef Name="Bank_Branch_id" />
+      </Principal>
+      <Dependent Role="account">
+        <PropertyRef Name="Bank_Branch_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__bank_branc__code__7F60ED59">
+    <End Role="bank" Type="Self.bank" Multiplicity="0..1" />
+    <End Role="bank_branch" Type="Self.bank_branch" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="bank">
+        <PropertyRef Name="code" />
+      </Principal>
+      <Dependent Role="bank_branch">
+        <PropertyRef Name="code" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__customer__Bank_B__0519C6AF">
+    <End Role="bank_branch" Type="Self.bank_branch" Multiplicity="0..1" />
+    <End Role="customer" Type="Self.customer" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="bank_branch">
+        <PropertyRef Name="Bank_Branch_id" />
+      </Principal>
+      <Dependent Role="customer">
+        <PropertyRef Name="Bank_Branch_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__loan__Bank_Branc__07F6335A">
+    <End Role="bank_branch" Type="Self.bank_branch" Multiplicity="0..1" />
+    <End Role="loan" Type="Self.loan" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="bank_branch">
+        <PropertyRef Name="Bank_Branch_id" />
+      </Principal>
+      <Dependent Role="loan">
+        <PropertyRef Name="Bank_Branch_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="BankAccountAmaniEntities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="accounts" EntityType="Self.account" />
+    <EntitySet Name="banks" EntityType="Self.bank" />
+    <EntitySet Name="bank_branch" EntityType="Self.bank_branch" />
+    <EntitySet Name="customers" EntityType="Self.customer" />
+    <EntitySet Name="loans" EntityType="Self.loan" />
+    <AssociationSet Name="FK__account__Bank_Br__023D5A04" Association="Self.FK__account__Bank_Br__023D5A04">
+      <End Role="bank_branch" EntitySet="bank_branch" />
+      <End Role="account" EntitySet="accounts" />
+    </AssociationSet>
+    <AssociationSet Name="FK__bank_branc__code__7F60ED59" Association="Self.FK__bank_branc__code__7F60ED59">
+      <End Role="bank" EntitySet="banks" />
+      <End Role="bank_branch" EntitySet="bank_branch" />
+    </AssociationSet>
+    <AssociationSet Name="FK__customer__Bank_B__0519C6AF" Association="Self.FK__customer__Bank_B__0519C6AF">
+      <End Role="bank_branch" EntitySet="bank_branch" />
+      <End Role="customer" EntitySet="customers" />
+    </AssociationSet>
+    <AssociationSet Name="FK__loan__Bank_Branc__07F6335A" Association="Self.FK__loan__Bank_Branc__07F6335A">
+      <End Role="bank_branch" EntitySet="bank_branch" />
+      <End Role="loan" EntitySet="loans" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

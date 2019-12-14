@@ -1,0 +1,54 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="BankAccountAmaniModelStoreContainer" CdmEntityContainer="BankAccountAmaniEntities">
+    <EntitySetMapping Name="accounts">
+      <EntityTypeMapping TypeName="BankAccountAmaniModel.account">
+        <MappingFragment StoreEntitySet="account">
+          <ScalarProperty Name="AccNo" ColumnName="AccNo" />
+          <ScalarProperty Name="TypeLoan" ColumnName="TypeLoan" />
+          <ScalarProperty Name="Bank_Branch_id" ColumnName="Bank_Branch_id" />
+          <ScalarProperty Name="Balance" ColumnName="Balance" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="banks">
+      <EntityTypeMapping TypeName="BankAccountAmaniModel.bank">
+        <MappingFragment StoreEntitySet="bank">
+          <ScalarProperty Name="code" ColumnName="code" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="Addresss" ColumnName="Addresss" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="bank_branch">
+      <EntityTypeMapping TypeName="BankAccountAmaniModel.bank_branch">
+        <MappingFragment StoreEntitySet="bank_branch">
+          <ScalarProperty Name="Bank_Branch_id" ColumnName="Bank_Branch_id" />
+          <ScalarProperty Name="Address" ColumnName="Address" />
+          <ScalarProperty Name="code" ColumnName="code" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="customers">
+      <EntityTypeMapping TypeName="BankAccountAmaniModel.customer">
+        <MappingFragment StoreEntitySet="customer">
+          <ScalarProperty Name="SSN" ColumnName="SSN" />
+          <ScalarProperty Name="Bank_Branch_id" ColumnName="Bank_Branch_id" />
+          <ScalarProperty Name="Phone" ColumnName="Phone" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="Addresss" ColumnName="Addresss" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="loans">
+      <EntityTypeMapping TypeName="BankAccountAmaniModel.loan">
+        <MappingFragment StoreEntitySet="loan">
+          <ScalarProperty Name="LoanNo" ColumnName="LoanNo" />
+          <ScalarProperty Name="Amount" ColumnName="Amount" />
+          <ScalarProperty Name="type" ColumnName="type" />
+          <ScalarProperty Name="Bank_Branch_id" ColumnName="Bank_Branch_id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>

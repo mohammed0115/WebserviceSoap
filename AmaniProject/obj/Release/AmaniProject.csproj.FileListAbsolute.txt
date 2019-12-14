@@ -1,0 +1,10 @@
+c:\users\mano\documents\visual studio 2013\Projects\AmaniProject\AmaniProject\bin\AmaniProject.dll.config
+c:\users\mano\documents\visual studio 2013\Projects\AmaniProject\AmaniProject\bin\AmaniProject.dll
+c:\users\mano\documents\visual studio 2013\Projects\AmaniProject\AmaniProject\bin\AmaniProject.pdb
+c:\users\mano\documents\visual studio 2013\Projects\AmaniProject\AmaniProject\bin\EntityFramework.dll
+c:\users\mano\documents\visual studio 2013\Projects\AmaniProject\AmaniProject\bin\EntityFramework.SqlServer.dll
+c:\users\mano\documents\visual studio 2013\Projects\AmaniProject\AmaniProject\bin\EntityFramework.xml
+c:\users\mano\documents\visual studio 2013\Projects\AmaniProject\AmaniProject\bin\EntityFramework.SqlServer.xml
+c:\users\mano\documents\visual studio 2013\Projects\AmaniProject\AmaniProject\obj\Release\AmaniProject.dll
+c:\users\mano\documents\visual studio 2013\Projects\AmaniProject\AmaniProject\obj\Release\AmaniProject.pdb
+C:\Users\Mano\documents\visual studio 2013\Projects\AmaniProject\AmaniProject\obj\Release\AmaniProject.csprojResolveAssemblyReference.cache
